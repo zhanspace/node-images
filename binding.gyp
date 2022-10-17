@@ -8,7 +8,7 @@
          'with_raw%':  'true',
      },
     'targets': [{
-        'target_name': 'binding',
+        'target_name': 'image',
         'sources': [
             'src/Image.cc',
             'src/Resize.cc',

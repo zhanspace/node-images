@@ -5,7 +5,7 @@ var fs = require('fs');
 var os = require('os');
 var path = require('path');
 var root = path.resolve(__dirname, '..');
-var binding = 'binding.node';
+var binding = 'image.node';
 
 /**
  * Require binding
