@@ -124,7 +124,7 @@ size_t Image::maxHeight = DEFAULT_HEIGHT_LIMIT;
 const char *Image::error = NULL;
 
 
-napi_value Image::Init(napi_env env, napi_value exports) { // {{{
+napi_value Image::Init(napi_env env, napi_value exports) { 
     regAllCodecs();
 
     napi_status status;
@@ -165,11 +165,11 @@ napi_value Image::Init(napi_env env, napi_value exports) { // {{{
     return exports;
 } //}}}
 
-void Image::setError(const char * err){ // {{{
+void Image::setError(const char * err){
     error = err;
-} // }}}
+}
 
-napi_value Image::getError(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::getError(napi_env env, napi_callback_info info) { 
     napi_status status;
     napi_value code, msg, err;
 
@@ -180,13 +180,13 @@ napi_value Image::getError(napi_env env, napi_callback_info info) { // {{{
     error = NULL;
 
     return err;
-} // }}}
+}
 
-bool Image::isError(){ // {{{
+bool Image::isError(){ 
     return error != NULL;
-} // }}}
+}
 
-napi_value Image::GetMaxWidth(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetMaxWidth(napi_env env, napi_callback_info info) { 
     napi_status status;
     napi_value width;
 
@@ -195,9 +195,9 @@ napi_value Image::GetMaxWidth(napi_env env, napi_callback_info info) { // {{{
 
     return width;
 
-} // }}}
+}
 
-napi_value Image::SetMaxWidth(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::SetMaxWidth(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     size_t argc = 1;
@@ -210,9 +210,9 @@ napi_value Image::SetMaxWidth(napi_env env, napi_callback_info info) { // {{{
     GET_VALUE_WITH_NAPI_FUNC(napi_get_value_uint32, value, (uint32_t *) &maxWidth);
 
     return value;
-} // }}}
+}
 
-napi_value Image::GetMaxHeight(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetMaxHeight(napi_env env, napi_callback_info info) { 
     napi_status status;
     napi_value height;
 
@@ -220,9 +220,9 @@ napi_value Image::GetMaxHeight(napi_env env, napi_callback_info info) { // {{{
     assert(status == napi_ok);
 
     return height;
-} // }}}
+}
 
-napi_value Image::SetMaxHeight(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::SetMaxHeight(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     size_t argc = 1;
@@ -236,12 +236,12 @@ napi_value Image::SetMaxHeight(napi_env env, napi_callback_info info) { // {{{
 	
 
     return value;
-} // }}}
+}
 
 // Memory
 size_t Image::usedMemory = 0;
 
-napi_value Image::GetUsedMemory(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetUsedMemory(napi_env env, napi_callback_info info) { 
     napi_status status;
     napi_value value;
 
@@ -249,17 +249,17 @@ napi_value Image::GetUsedMemory(napi_env env, napi_callback_info info) { // {{{
     assert(status == napi_ok);
 
     return value;
-} // }}}
+}
 
-napi_value Image::GC(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GC(napi_env env, napi_callback_info info) { 
     //V8::LowMemoryNotification();
     napi_value undefined;
     napi_get_undefined(env, &undefined);
 
     return undefined;
-} // }}}
+}
 
-napi_value Image::New(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::New(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value target;
@@ -297,9 +297,9 @@ napi_value Image::New(napi_env env, napi_callback_info info) { // {{{
         // @TODO
         return nullptr;
     }
-} // }}}
+}
 
-napi_value Image::GetWidth(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetWidth(napi_env env, napi_callback_info info) { 
     napi_status status;
     napi_value jsthis;
 
@@ -315,9 +315,9 @@ napi_value Image::GetWidth(napi_env env, napi_callback_info info) { // {{{
     assert(status == napi_ok);
 
     return value;
-} // }}}
+}
 
-napi_value Image::SetWidth(napi_env env, napi_callback_info info){ // {{{
+napi_value Image::SetWidth(napi_env env, napi_callback_info info){ 
     napi_status status;
 
     napi_value jsthis;
@@ -334,9 +334,9 @@ napi_value Image::SetWidth(napi_env env, napi_callback_info info){ // {{{
     img->pixels->SetWidth((size_t) value);
 
     return jsthis;
-} // }}}
+}
 
-napi_value Image::GetHeight(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetHeight(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -354,9 +354,9 @@ napi_value Image::GetHeight(napi_env env, napi_callback_info info) { // {{{
 
     return value;
 
-} // }}}
+}
 
-napi_value Image::SetHeight(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::SetHeight(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -374,7 +374,7 @@ napi_value Image::SetHeight(napi_env env, napi_callback_info info) { // {{{
 
     return jsthis;
 
-} // }}}
+}
 
 
 /**
@@ -450,7 +450,7 @@ napi_value Image::Rotate(napi_env env, napi_callback_info info) {
     return jsthis;
 }
 
-napi_value Image::GetTransparent(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::GetTransparent(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -467,9 +467,9 @@ napi_value Image::GetTransparent(napi_env env, napi_callback_info info) { // {{{
     assert(status == napi_ok);
 
     return value;
-} // }}}
+}
 
-napi_value Image::FillColor(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::FillColor(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -508,9 +508,9 @@ napi_value Image::FillColor(napi_env env, napi_callback_info info) { // {{{
     img->pixels->Fill(cp);
 
     return jsthis;
-} // }}}
+}
 
-napi_value Image::LoadFromBuffer(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::LoadFromBuffer(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -579,9 +579,9 @@ napi_value Image::LoadFromBuffer(napi_env env, napi_callback_info info) { // {{{
 
     isError() ? (THROW_GET_ERROR()) : THROW_ERROR("Unknow format");
     return jsthis;
-} // }}}
+}
 
-napi_value Image::CopyFromImage(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::CopyFromImage(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -632,7 +632,7 @@ napi_value Image::CopyFromImage(napi_env env, napi_callback_info info) { // {{{
     return nullptr;
 }// }}}
 
-napi_value Image::DrawImage(napi_env env, napi_callback_info info) { // {{{
+napi_value Image::DrawImage(napi_env env, napi_callback_info info) { 
     napi_status status;
 
     napi_value jsthis;
@@ -670,7 +670,7 @@ napi_value Image::DrawImage(napi_env env, napi_callback_info info) { // {{{
     dst->pixels->Draw(src->pixels, x, y);
 
     return jsthis;
-} // }}}
+}
 
 napi_value Image::ToBuffer(napi_env env, napi_callback_info info) { //{{{
     napi_status status;
@@ -771,9 +771,9 @@ napi_value Image::ToBuffer(napi_env env, napi_callback_info info) { //{{{
         return nullptr;
     }
 
-} // }}}
+}
 
-void Image::regCodec(ImageDecoder decoder, ImageEncoder encoder, ImageType type){ // {{{
+void Image::regCodec(ImageDecoder decoder, ImageEncoder encoder, ImageType type){ 
     ImageCodec *codec;
     codec = (ImageCodec *) malloc(sizeof(ImageCodec));
     codec->next = codecs;
@@ -781,10 +781,10 @@ void Image::regCodec(ImageDecoder decoder, ImageEncoder encoder, ImageType type)
     codec->encoder = encoder;
     codec->type = type;
     codecs = codec;
-} // }}}
+}
 
 
-void Pixel::Merge(Pixel *pixel){ // {{{
+void Pixel::Merge(Pixel *pixel){ 
     double a, af, ab;
     ab = (double) A / 0xFF;
     af = (double) pixel->A / 0xFF;
@@ -794,9 +794,9 @@ void Pixel::Merge(Pixel *pixel){ // {{{
     G = (uint8_t) ((pixel->G * af + G * ab * (1 - af)) / a);
     B = (uint8_t) ((pixel->B * af + B * ab * (1 - af)) / a);
     A = (uint8_t) (a * 0xFF);
-} // }}}
+}
 
-ImageState PixelArray::Malloc(size_t w, size_t h){ // {{{
+ImageState PixelArray::Malloc(size_t w, size_t h){ 
     int32_t size;
     Pixel *line;
 
@@ -837,9 +837,9 @@ fail:
     type = EMPTY;
     data = NULL;
     return FAIL;
-} // }}}
+}
 
-void PixelArray::Free(){ // {{{
+void PixelArray::Free(){ 
     size_t h, size;
 
     if(data != NULL){
@@ -856,9 +856,9 @@ void PixelArray::Free(){ // {{{
     width = height = 0;
     type = EMPTY;;
     data = NULL;
-} // }}}
+}
 
-ImageState PixelArray::CopyFrom(PixelArray *src, size_t x, size_t y, size_t w, size_t h){ // {{{
+ImageState PixelArray::CopyFrom(PixelArray *src, size_t x, size_t y, size_t w, size_t h){ 
     size_t sw, sh, size;
 
     sw = src->width;
@@ -879,9 +879,9 @@ ImageState PixelArray::CopyFrom(PixelArray *src, size_t x, size_t y, size_t w, s
     }
 
     return SUCCESS;
-} // }}}
+}
 
-void PixelArray::Draw(PixelArray *src, size_t x, size_t y){ // {{{
+void PixelArray::Draw(PixelArray *src, size_t x, size_t y){ 
     //TODO
     size_t sw, sh, dw, dh, w, h, sx, sy, size;
     PixelArrayType st;
@@ -930,9 +930,9 @@ void PixelArray::Draw(PixelArray *src, size_t x, size_t y){ // {{{
         }
         DetectTransparent();
     }
-} // }}}
+}
 
-void PixelArray::Fill(Pixel *color){ // {{{
+void PixelArray::Fill(Pixel *color){ 
     size_t i, size;
     uint8_t a;
     bool same;
@@ -960,9 +960,9 @@ void PixelArray::Fill(Pixel *color){ // {{{
 
         type = ((a == 0xFF) ? SOLID :((a == 0x00) ? EMPTY : ALPHA));
     }
-} // }}}
+}
 
-ImageState PixelArray::SetWidth(size_t w){ // {{{
+ImageState PixelArray::SetWidth(size_t w){ 
     size_t size, *index, *p, x, y;
     double scale;
     Pixel *src, *dst;
@@ -1009,9 +1009,9 @@ ImageState PixelArray::SetWidth(size_t w){ // {{{
         *this = *pixels;
     }
     return SUCCESS;
-} // }}}
+}
 
-ImageState PixelArray::SetHeight(size_t h){ // {{{
+ImageState PixelArray::SetHeight(size_t h){ 
     PixelArray newArray, *pixels;
     size_t size, y;
     double scale;
@@ -1046,7 +1046,7 @@ ImageState PixelArray::SetHeight(size_t h){ // {{{
         *this = *pixels;
     }
     return SUCCESS;
-} // }}}
+}
 
 ImageState PixelArray::Resize(size_t w, size_t h, const char *filter){
     PixelArray newArray, *pixels;
@@ -1114,7 +1114,7 @@ ImageState PixelArray::Rotate(size_t deg){
     return SUCCESS;
 }
 
-void PixelArray::DetectTransparent(){ // {{{
+void PixelArray::DetectTransparent(){ 
     size_t x, y;
     Pixel *pixel;
     bool empty, opaque, alpha;
@@ -1144,15 +1144,6 @@ void PixelArray::DetectTransparent(){ // {{{
         }
     }
     type = opaque ? SOLID : EMPTY;
-} // }}}
-
-napi_value Method(napi_env env, napi_callback_info args) {
-  napi_value greeting;
-  napi_status status;
-
-  status = napi_create_string_utf8(env, "world", NAPI_AUTO_LENGTH, &greeting);
-  if (status != napi_ok) return nullptr;
-  return greeting;
 }
 
 napi_value Init(napi_env env, napi_value exports) {
