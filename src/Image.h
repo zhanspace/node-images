@@ -218,24 +218,30 @@ class Image {
 
         static void regAllCodecs() {
             codecs = NULL;
-#ifdef HAVE_WEBP
+
+            #ifdef HAVE_WEBP
             regCodec(DECODER(Webp), ENCODER(Webp), TYPE_WEBP);
-#endif
-#ifdef HAVE_RAW
+            #endif
+
+            #ifdef HAVE_RAW
             regCodec(DECODER(Raw), ENCODER(Raw), TYPE_RAW);
-#endif
-#ifdef HAVE_BMP
+            #endif
+
+            #ifdef HAVE_BMP
             regCodec(DECODER(Bmp), ENCODER(Bmp), TYPE_BMP);
-#endif
-#ifdef HAVE_GIF
+            #endif
+
+            #ifdef HAVE_GIF
             regCodec(DECODER(Gif), ENCODER(Gif), TYPE_GIF);
-#endif
-#ifdef HAVE_JPEG
+            #endif
+
+            #ifdef HAVE_JPEG
             regCodec(DECODER(Jpeg), ENCODER(Jpeg), TYPE_JPEG);
-#endif
-#ifdef HAVE_PNG
+            #endif
+
+            #ifdef HAVE_PNG
             regCodec(DECODER(Png), ENCODER(Png), TYPE_PNG);
-#endif
+            #endif
         }
 
         PixelArray *pixels;

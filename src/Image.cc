@@ -1146,13 +1146,17 @@ void PixelArray::DetectTransparent(){ // {{{
     type = opaque ? SOLID : EMPTY;
 } // }}}
 
-extern "C" { // {{{
-    napi_value Init(napi_env env, napi_value exports) {
-      return Image::Init(env, exports);
-    }
-} // }}}
+napi_value Method(napi_env env, napi_callback_info args) {
+  napi_value greeting;
+  napi_status status;
 
+  status = napi_create_string_utf8(env, "world", NAPI_AUTO_LENGTH, &greeting);
+  if (status != napi_ok) return nullptr;
+  return greeting;
+}
+
+napi_value Init(napi_env env, napi_value exports) {
+    return Image::Init(env, exports);
+}
 
 NAPI_MODULE(NODE_GYP_MODULE_NAME, Init);
-
-// vim600: sw=4 ts=4 fdm=marker syn=cpp
