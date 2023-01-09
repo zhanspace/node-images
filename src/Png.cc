@@ -107,7 +107,7 @@ void flush_memory(png_structp png_ptr){ // {{{
 
 #define PNG_BYTES_TO_CHECK 4
 
-DECODER_FN(Png){ // {{{
+ImageState decodePng(PixelArray * output, ImageData * input) {
     png_structp png_ptr;
     png_infop info_ptr;
 
@@ -181,7 +181,7 @@ DECODER_FN(Png){ // {{{
     return SUCCESS;
 } // }}}
 
-ENCODER_FN(Png){ // {{{
+ImageState encodePng(PixelArray * input, ImageData * output, ImageConfig * config) {
     png_structp png_ptr;
     png_infop info_ptr;
 

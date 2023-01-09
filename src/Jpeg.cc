@@ -75,7 +75,7 @@ void jpeg_cb_error_exit(j_common_ptr cinfo){
 	longjmp(mptr->setjmp_buffer, 1);
 }
 
-DECODER_FN(Jpeg){ // {{{
+ImageState decodeJpeg(PixelArray * output, ImageData * input) {
 	struct jpeg_decompress_struct cinfo;
 	struct my_jpeg_error_mgr jerr;
 
@@ -117,7 +117,7 @@ DECODER_FN(Jpeg){ // {{{
 	return SUCCESS;
 } // }}}
 
-ENCODER_FN(Jpeg){ // {{{
+ImageState encodeJpeg(PixelArray * input, ImageData * output, ImageConfig * config) {
 	struct jpeg_compress_struct cinfo;
 	struct my_jpeg_error_mgr jerr;
 	jpeg_compress_config *conf;

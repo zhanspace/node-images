@@ -85,7 +85,7 @@ void DrawImage2PixelArray(PixelArray* dst, GifRowType *rows, ColorMapObject *map
 static int InterlacedOffset[] =  { 0, 4, 2, 1 },
 		   InterlacedJumps[] =  { 8, 8, 4, 2 };
 
-DECODER_FN(Gif){
+ImageState decodeGif(PixelArray * output, ImageData * input) {
 	ImageState ret;
 
 	GifFileType *gif;
@@ -229,7 +229,7 @@ RETURN:
 	return ret;
 }
 
-ENCODER_FN(Gif){
+ImageState encodeGif(PixelArray * input, ImageData * output, ImageConfig * config) {
 	//TODO
 	return FAIL;
 }

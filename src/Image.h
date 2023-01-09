@@ -98,11 +98,6 @@ struct ImageCodec
 	struct ImageCodec *next;
 };
 
-#define ENCODER(type) encode##type
-#define ENCODER_FN(type) ImageState ENCODER(type)(PixelArray * input, ImageData * output, ImageConfig * config)
-#define DECODER(type) decode##type
-#define DECODER_FN(type) ImageState DECODER(type)(PixelArray * output, ImageData * input)
-
 #ifdef HAVE_PNG
 ImageState encodePng(PixelArray * input, ImageData * output, ImageConfig * config);
 ImageState decodePng(PixelArray * output, ImageData * input);

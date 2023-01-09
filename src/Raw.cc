@@ -36,7 +36,7 @@
 
 #define RAW_HEADER_SIZE 12
 
-DECODER_FN(Raw){ // {{{
+ImageState decodeRaw(PixelArray * output, ImageData * input) {
 	uint32_t  width, height, x, y;
 	Pixel *sp, *dp;
 
@@ -81,7 +81,7 @@ DECODER_FN(Raw){ // {{{
 	return SUCCESS;
 } // }}}
 
-ENCODER_FN(Raw){ // {{{
+ImageState encodeRaw(PixelArray * input, ImageData * output, ImageConfig * config) {
 	uint32_t width, height, x, y;
 	size_t length;
 	Pixel *sp, *dp;

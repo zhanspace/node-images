@@ -30,12 +30,12 @@
 
 #ifdef HAVE_BMP
 
-DECODER_FN(Bmp){
+ImageState decodeBmp(PixelArray * output, ImageData * input) {
 //TODO
 return FAIL;
 }
 
-ENCODER_FN(Bmp){
+ImageState encodeBmp(PixelArray * input, ImageData * output, ImageConfig * config) {
 //TODO
 return FAIL;
 }

@@ -38,7 +38,7 @@
 
 #include <stdlib.h>
 
-DECODER_FN(Webp){ // {{{
+ImageState decodeWebp(PixelArray * output, ImageData * input) {
     int width;
     int height;
     int line;
@@ -65,7 +65,7 @@ DECODER_FN(Webp){ // {{{
     return SUCCESS;
 } // }}}
 
-ENCODER_FN(Webp){ // {{{
+ImageState encodeWebp(PixelArray * input, ImageData * output, ImageConfig * config) {
     uint8_t *rgba;
     uint8_t *dist;
     int width;
