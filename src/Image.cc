@@ -1,30 +1,3 @@
-/*
- * Image.cc
- *
- * The MIT License (MIT)
- *
- * Copyright (c) 2013 ZhangYuanwei <zhangyuanwei1988@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sub license, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice (including the
- * next paragraph) shall be included in all copies or substantial portions
- * of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
- * IN NO EVENT SHALL INTEL AND/OR ITS SUPPLIERS BE LIABLE FOR
- * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 #include "Image.h"
 #include "Resize.h"
 #include "Rotate.h"
@@ -41,18 +14,19 @@
 //#define SET_ERROR(msg) SET_ERROR_FILE_LINE(__FILE__, __LINE__, meg)
 
 #define DECLARE_NAPI_METHOD(name, func)                                                             \
-  { name, 0, func, 0, 0, 0, napi_default, 0 }
+  { name, NULL, func, NULL, NULL, NULL, napi_default, NULL }
 #define DECLARE_NAPI_ACCESSOR(name, get, set)                                                       \
-  { name, 0, 0, get, set, 0, napi_default, 0 }
-#define DEFINE_NAPI_CONSTANT(name, value)                                                           \
-  do {                                                                                              \
-    napi_value _define_value;                                                                       \
-    napi_status _define_status;                                                                     \
-    _define_status = napi_create_uint32(env, value, &_define_value);                                \
-    assert(_define_status == napi_ok);                                                              \
-    _define_status = napi_set_named_property(env, exports, name, _define_value);                    \
-    assert(_define_status == napi_ok);                                                              \
-  } while(0);
+  { name, NULL, NULL, get, set, NULL, napi_default, NULL }
+
+void define_napi_constant(napi_env env, napi_value exports, char *name, int value) {
+    napi_value _define_value;
+    napi_status _define_status;
+    _define_status = napi_create_uint32(env, value, &_define_value);
+    assert(_define_status == napi_ok);
+    _define_status = napi_set_named_property(env, exports, name, _define_value);
+    assert(_define_status == napi_ok);
+    return void(0);
+}
 
 #define GET_VALUE_WITH_NAPI_FUNC(func, arg, valueRef)                                               \
     do {                                                                                            \
@@ -127,7 +101,13 @@ const char *Image::error = NULL;
 napi_value Image::Init(napi_env env, napi_value exports) { 
     regAllCodecs();
 
-    napi_status status;
+    define_napi_constant(env, exports, "TYPE_PNG", TYPE_PNG);
+    define_napi_constant(env, exports, "TYPE_JPEG", TYPE_JPEG);
+    define_napi_constant(env, exports, "TYPE_GIF", TYPE_GIF);
+    define_napi_constant(env, exports, "TYPE_BMP", TYPE_BMP);
+    define_napi_constant(env, exports, "TYPE_RAW", TYPE_RAW);
+    define_napi_constant(env, exports, "TYPE_WEBP", TYPE_WEBP);
+
     napi_property_descriptor properties[] = {
         DECLARE_NAPI_ACCESSOR("width", GetWidth, SetWidth),
         DECLARE_NAPI_ACCESSOR("height", GetHeight, SetHeight),
@@ -145,25 +125,20 @@ napi_value Image::Init(napi_env env, napi_value exports) {
         DECLARE_NAPI_METHOD("gc", GC)
     };
 
+    napi_status status;
     napi_value cons;
+
     status = napi_define_class(env, "Image", NAPI_AUTO_LENGTH, New, nullptr, 14, properties, &cons);
-    assert(status == napi_ok); 
+    assert(status == napi_ok);
 
     status = napi_create_reference(env, cons, 1, &constructor);
     assert(status == napi_ok);
-
-    DEFINE_NAPI_CONSTANT("TYPE_PNG", TYPE_PNG);
-    DEFINE_NAPI_CONSTANT("TYPE_JPEG", TYPE_JPEG);
-    DEFINE_NAPI_CONSTANT("TYPE_GIF", TYPE_GIF);
-    DEFINE_NAPI_CONSTANT("TYPE_BMP", TYPE_BMP);
-    DEFINE_NAPI_CONSTANT("TYPE_RAW", TYPE_RAW);
-    DEFINE_NAPI_CONSTANT("TYPE_WEBP", TYPE_WEBP);
 
     status = napi_set_named_property(env, exports, "Image", cons);
     assert(status == napi_ok);
 
     return exports;
-} //}}}
+}
 
 void Image::setError(const char * err){
     error = err;

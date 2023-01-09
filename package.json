@@ -5,6 +5,9 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "m1": "arch -x86_64 zsh",
+    "config": "node-gyp configure",
+    "build": "node-gyp build",
     "test": "node test/index.js",
     "install": "node scripts/nothing.js"
   },
