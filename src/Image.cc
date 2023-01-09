@@ -1,24 +1,21 @@
-#include "Image.h"
-#include "Resize.h"
-#include "Rotate.h"
-#include <node_buffer.h>
-
+#include <iostream>
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <iostream>
+#include <node_buffer.h>
 
-//#define SET_ERROR_FILE_LINE(file, line, msg) Image::SetError( file #line msg)
-//#define SET_ERROR(msg) SET_ERROR_FILE_LINE(__FILE__, __LINE__, meg)
+#include "Image.h"
+#include "Resize.h"
+#include "Rotate.h"
 
 #define DECLARE_NAPI_METHOD(name, func)                                                             \
   { name, NULL, func, NULL, NULL, NULL, napi_default, NULL }
 #define DECLARE_NAPI_ACCESSOR(name, get, set)                                                       \
   { name, NULL, NULL, get, set, NULL, napi_default, NULL }
 
-void define_napi_constant(napi_env env, napi_value exports, char *name, int value) {
+void define_napi_constant(napi_env env, napi_value exports, const char *name, int value) {
     napi_value _define_value;
     napi_status _define_status;
     _define_status = napi_create_uint32(env, value, &_define_value);
@@ -97,7 +94,6 @@ size_t Image::maxWidth = DEFAULT_WIDTH_LIMIT;
 size_t Image::maxHeight = DEFAULT_HEIGHT_LIMIT;
 const char *Image::error = NULL;
 
-
 napi_value Image::Init(napi_env env, napi_value exports) { 
     regAllCodecs();
 
@@ -145,7 +141,6 @@ void Image::setError(const char * err){
 }
 
 napi_value Image::getError(napi_env env, napi_callback_info info) { 
-    napi_status status;
     napi_value code, msg, err;
 
     napi_create_string_utf8(env, "50030", 6, &code);
@@ -360,7 +355,6 @@ napi_value Image::Resize(napi_env env, napi_callback_info info) {
     napi_status status;
 
     napi_value jsthis;
-    napi_value value;
 
     size_t argc = 3;
     napi_value args[3];
@@ -448,7 +442,6 @@ napi_value Image::FillColor(napi_env env, napi_callback_info info) {
     napi_status status;
 
     napi_value jsthis;
-    napi_value value;
 
     size_t argc = 4;
     napi_value args[4];
@@ -489,7 +482,6 @@ napi_value Image::LoadFromBuffer(napi_env env, napi_callback_info info) {
     napi_status status;
 
     napi_value jsthis;
-    napi_value value;
 
     size_t argc = 3;
     napi_value args[3];
@@ -1067,8 +1059,6 @@ ImageState PixelArray::Resize(size_t w, size_t h, const char *filter){
 
 ImageState PixelArray::Rotate(size_t deg){
     PixelArray newArray, *pixels;
-    size_t w,h;
-    
     deg = deg % 360;
 
     if(data != NULL){
@@ -1121,8 +1111,6 @@ void PixelArray::DetectTransparent(){
     type = opaque ? SOLID : EMPTY;
 }
 
-napi_value Init(napi_env env, napi_value exports) {
+NAPI_MODULE_INIT() {
     return Image::Init(env, exports);
 }
-
-NAPI_MODULE(NODE_GYP_MODULE_NAME, Init);

@@ -200,29 +200,29 @@ private:
 	{
 		codecs = NULL;
 
-#ifdef HAVE_WEBP
-		regCodec(DECODER(Webp), ENCODER(Webp), TYPE_WEBP);
-#endif
+		#ifdef HAVE_WEBP
+		regCodec(decodeWebp, encodeWebp, TYPE_WEBP);
+		#endif
 
-#ifdef HAVE_RAW
-		regCodec(DECODER(Raw), ENCODER(Raw), TYPE_RAW);
-#endif
+		#ifdef HAVE_RAW
+		regCodec(decodeRaw, encodeRaw, TYPE_RAW);
+		#endif
 
-#ifdef HAVE_BMP
-		regCodec(DECODER(Bmp), ENCODER(Bmp), TYPE_BMP);
-#endif
+		#ifdef HAVE_BMP
+		regCodec(decodeBmp, encodeBmp, TYPE_BMP);
+		#endif
 
-#ifdef HAVE_GIF
-		regCodec(DECODER(Gif), ENCODER(Gif), TYPE_GIF);
-#endif
+		#ifdef HAVE_GIF
+		regCodec(decodeGif, encodeGif, TYPE_GIF);
+		#endif
 
-#ifdef HAVE_JPEG
-		regCodec(DECODER(Jpeg), ENCODER(Jpeg), TYPE_JPEG);
-#endif
+		#ifdef HAVE_JPEG
+		regCodec(decodeJpeg, encodeJpeg, TYPE_JPEG);
+		#endif
 
-#ifdef HAVE_PNG
-		regCodec(DECODER(Png), ENCODER(Png), TYPE_PNG);
-#endif
+		#ifdef HAVE_PNG
+		regCodec(decodePng, encodePng, TYPE_PNG);
+		#endif
 	}
 
 	PixelArray *pixels;
