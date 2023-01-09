@@ -102,32 +102,35 @@ struct ImageCodec
 #define ENCODER_FN(type) ImageState ENCODER(type)(PixelArray * input, ImageData * output, ImageConfig * config)
 #define DECODER(type) decode##type
 #define DECODER_FN(type) ImageState DECODER(type)(PixelArray * output, ImageData * input)
-#define IMAGE_CODEC(type) \
-	DECODER_FN(type);       \
-	ENCODER_FN(type)
 
 #ifdef HAVE_PNG
-IMAGE_CODEC(Png);
+ImageState encodePng(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodePng(PixelArray * output, ImageData * input);
 #endif
 
 #ifdef HAVE_JPEG
-IMAGE_CODEC(Jpeg);
+ImageState encodeJpeg(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodeJpeg(PixelArray * output, ImageData * input);
 #endif
 
 #ifdef HAVE_GIF
-IMAGE_CODEC(Gif);
+ImageState encodeGif(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodeGif(PixelArray * output, ImageData * input);
 #endif
 
 #ifdef HAVE_BMP
-IMAGE_CODEC(Bmp);
+ImageState encodeBmp(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodeBmp(PixelArray * output, ImageData * input);
 #endif
 
 #ifdef HAVE_RAW
-IMAGE_CODEC(Raw);
+ImageState encodeRaw(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodeRaw(PixelArray * output, ImageData * input);
 #endif
 
 #ifdef HAVE_WEBP
-IMAGE_CODEC(Webp);
+ImageState encodeWebp(PixelArray * input, ImageData * output, ImageConfig * config);
+ImageState decodeWebp(PixelArray * output, ImageData * input);
 #endif
 
 class Image
